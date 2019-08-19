@@ -626,8 +626,19 @@ namespace Calculator3
 
         private void BtnPlus_Click(object sender, RoutedEventArgs e)
         {
+
             comma = "";
-            EnterOperation("+");
+            if (operation == "")
+            {
+                number1 = Double.Parse(txtDisplay.Text);
+                number2 = 0;
+                EnterOperation("+");
+            }
+            else
+            {
+                Calculate();
+                EnterOperation("+");
+            }
         }
 
         private void Btn3_Click(object sender, RoutedEventArgs e)
@@ -677,7 +688,17 @@ namespace Calculator3
         private void BtnMinus_Click(object sender, RoutedEventArgs e)
         {
             comma = "";
-            EnterOperation("-");
+            if (operation == "")
+            {
+                number1 = Double.Parse(txtDisplay.Text);
+                number2 = 0;
+                EnterOperation("-");
+            }
+            else
+            {
+                Calculate();
+                EnterOperation("-");
+            }
         }
 
         private void Btn6_Click(object sender, RoutedEventArgs e)
@@ -727,7 +748,32 @@ namespace Calculator3
         private void BtnMult_Click(object sender, RoutedEventArgs e)
         {
             comma = "";
-            EnterOperation("*");
+            if (operation == "")
+            {
+                number1 = Double.Parse(txtDisplay.Text);
+                number2 = 0;
+                EnterOperation("*");
+            }
+            else
+            {
+                Calculate();
+                EnterOperation("*");
+            }
+
+            //{
+            //    if (operation == "")
+            //    {
+            //        operation = "*";
+            //        txtDisplay.Text = "*";
+            //    }
+            //    else
+            //    {
+            //        number1 = number1 * number2;
+            //        number2 = 0;
+            //        txtDisplay.Text = number1.ToString();
+            //    }
+
+            //}
         }
 
         private void Btn9_Click(object sender, RoutedEventArgs e)
@@ -776,8 +822,19 @@ namespace Calculator3
 
         private void BtnDiv_Click(object sender, RoutedEventArgs e)
         {
+
             comma = "";
-            EnterOperation("/");
+            if (operation == "")
+            {
+                number1 = Double.Parse(txtDisplay.Text);
+                number2 = 0;
+                EnterOperation("/");
+            }
+            else
+            {
+                Calculate();
+                EnterOperation("/");
+            }
         }
 
         private void BtnBackSpase_Click(object sender, RoutedEventArgs e)
@@ -822,7 +879,7 @@ namespace Calculator3
                 {
                     int length = str.Length - 1;
                     str = str.Remove(length);
-                    txtDisplay.Text = str; 
+                    txtDisplay.Text = str;
                     number2 = Convert.ToDouble(str);
                 }
             }
@@ -1013,33 +1070,33 @@ namespace Calculator3
         private void EnterNumberProgrammer(byte n = 0)
         {
 
-                if (operation == "")
+            if (operation == "")
+            {
+                number1 = (number1 * 10) + n;
+                txtDisplay.Text = number1.ToString();
+                if (bProgrammer)
                 {
-                    number1 = (number1 * 10) + n;
-                    txtDisplay.Text = number1.ToString();
-                    if (bProgrammer)
-                    {
-                        DisplayNumberProgrammer((Int64)number1);
-                    }
-            }
-                else
-                {
-                    number2 = (number2 * 10) + n;
-                    txtDisplay.Text = number2.ToString();
-                    if (bProgrammer)
-                    {
-                        DisplayNumberProgrammer((Int64)number2);
-                    }
+                    DisplayNumberProgrammer((Int64)number1);
                 }
+            }
+            else
+            {
+                number2 = (number2 * 10) + n;
+                txtDisplay.Text = number2.ToString();
+                if (bProgrammer)
+                {
+                    DisplayNumberProgrammer((Int64)number2);
+                }
+            }
         }
 
         private void DisplayNumberProgrammer(long num = 0)
         {
 
-                txtDisplayHex.Text = ConvertToHex((Int64)num);
-                txtDisplayDec.Text = num.ToString();
-                txtDisplayOct.Text = ConvertToOct((Int64)num);
-                txtDisplayBin.Text = ConvertToBin((Int64)num);
+            txtDisplayHex.Text = ConvertToHex((Int64)num);
+            txtDisplayDec.Text = num.ToString();
+            txtDisplayOct.Text = ConvertToOct((Int64)num);
+            txtDisplayBin.Text = ConvertToBin((Int64)num);
         }
 
         private string ConvertToBin(long n = 0)
@@ -1074,9 +1131,9 @@ namespace Calculator3
                 n = Convert.ToInt64(num, 2);
             }
             else if (system == "Oct")
-                {
-                    n = Convert.ToInt64(num, 8);
-                }
+            {
+                n = Convert.ToInt64(num, 8);
+            }
             else if (system == "Hex")
             {
                 n = Convert.ToInt64(num, 8);
@@ -1089,8 +1146,11 @@ namespace Calculator3
         {
             operation = s;
             txtDisplay.Text = s;
+            if (bProgrammer)
+            {
+                DisplayNumberProgrammer(0);
+            }
         }
-
         private void Calculate()
         {
             if (operation2 == "")
@@ -1101,21 +1161,22 @@ namespace Calculator3
                         txtDisplay.Text = (number1 + number2).ToString();
                         if (bProgrammer)
                         {
-                            DisplayNumberProgrammer((Int64)(number1 + number2));
+                            DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));//((Int64)(number1 + number2));
                         }
                         break;
                     case "-":
                         txtDisplay.Text = (number1 - number2).ToString();
                         if (bProgrammer)
                         {
-                            DisplayNumberProgrammer((Int64)(number1 - number2));
+                            DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));//((Int64)(txtDisplay.Text));
                         }
                         break;
                     case "*":
                         txtDisplay.Text = (number1 * number2).ToString();
+                        number2 = 0;
                         if (bProgrammer)
                         {
-                            DisplayNumberProgrammer((Int64)(number1 * number2));
+                            DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));
                         }
                         break;
                     case "/":
@@ -1131,7 +1192,7 @@ namespace Calculator3
                             txtDisplay.Text = (number1 / number2).ToString();
                             if (bProgrammer)
                             {
-                                DisplayNumberProgrammer((Int64)(number1 / number2));
+                                DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));//((Int64)(number1 / number2));
                             }
                         }
                         break;
@@ -1153,7 +1214,6 @@ namespace Calculator3
                             txtDisplay.Text = number1.ToString();
                             break;
                         }
-
 
                 }
             }
@@ -1274,7 +1334,7 @@ namespace Calculator3
             }
         }
 
-        private void BtnPI_Click(object sender, RoutedEventArgs e) 
+        private void BtnPI_Click(object sender, RoutedEventArgs e)
         {
             if (operation == "")
             {
@@ -1288,7 +1348,7 @@ namespace Calculator3
             }
         }
 
-        private void BtnFact_Click(object sender, RoutedEventArgs e) 
+        private void BtnFact_Click(object sender, RoutedEventArgs e)
         {
             if (operation == "")
             {
@@ -1318,13 +1378,13 @@ namespace Calculator3
                 }
             }
 
-            catch (System.StackOverflowException )
+            catch (System.StackOverflowException)
             {
                 txtDisplay.Text = "Too big value";
-                fact  = 1;
+                fact = 1;
                 throw;
             }
-            
+
             return fact;
         }
 

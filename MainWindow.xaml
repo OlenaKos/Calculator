@@ -185,8 +185,8 @@
         <Button x:Name="btn02"  Grid.Row="29" Grid.RowSpan="3" Grid.Column="12" Grid.ColumnSpan="6" Click="Btn0_Click">0</Button>
         <Button x:Name="btnComma2" Grid.Row="29" Grid.RowSpan="3" Grid.Column="18" Grid.ColumnSpan="6" Click="BtnComma_Click">,</Button>
         <Button x:Name="btnEquals2" Grid.Row="29" Grid.RowSpan="3" Grid.Column="24" Grid.ColumnSpan="6" Click="BtnEquals_Click">=</Button>
-        
-        
+
+
         <!--Programmer area-->
 
         <TextBox x:Name="txtDisplayHex" IsReadOnly="True" TextAlignment="Left" 
@@ -218,17 +218,17 @@
         <Button x:Name="btnC3"  Grid.Row="17" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" Click="BtnC_Click">C</Button>
         <Button x:Name="btnBackSpase3" Grid.Row="17" Grid.RowSpan="3" Grid.Column="12" Grid.ColumnSpan="6" Click="BtnBackSpase_Click">&lt;-</Button>
         <Button x:Name="btnDiv3" Grid.Row="17" Grid.RowSpan="3" Grid.Column="18" Grid.ColumnSpan="6" Click="BtnDiv_Click">/</Button>
-        
+
         <Button x:Name="btn73" Grid.Row="20" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="6" Click="Btn7_Click">7</Button>
         <Button x:Name="btn83"  Grid.Row="20" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" Click="Btn8_Click">8</Button>
         <Button x:Name="btn93" Grid.Row="20" Grid.RowSpan="3" Grid.Column="12" Grid.ColumnSpan="6" Click="Btn9_Click">9</Button>
         <Button x:Name="btnMult3" Grid.Row="20" Grid.RowSpan="3" Grid.Column="18" Grid.ColumnSpan="6" Click="BtnMult_Click">x</Button>
-        
+
         <Button x:Name="btn43" Grid.Row="23" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="6" Click="Btn4_Click">4</Button>
         <Button x:Name="btn53"  Grid.Row="23" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" Click="Btn5_Click">5</Button>
         <Button x:Name="btn63" Grid.Row="23" Grid.RowSpan="3" Grid.Column="12" Grid.ColumnSpan="6" Click="Btn6_Click">6</Button>
         <Button x:Name="btnMinus3" Grid.Row="23" Grid.RowSpan="4" Grid.Column="18" Grid.ColumnSpan="6" Click="BtnMinus_Click">-</Button>
-        
+
         <Button x:Name="btn13" Grid.Row="26" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="6" Click="Btn1_Click">1</Button>
         <Button x:Name="btn23"  Grid.Row="26" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" Click="Btn2_Click">2</Button>
         <Button x:Name="btn33" Grid.Row="26" Grid.RowSpan="3" Grid.Column="12" Grid.ColumnSpan="6" Click="Btn3_Click">3</Button>
