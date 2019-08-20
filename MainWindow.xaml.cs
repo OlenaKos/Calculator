@@ -267,10 +267,11 @@ namespace Calculator3
             txtDisplayBinLabel.Visibility = Visibility.Hidden;
 
             // Memory area clearing
-            btnMC.Background = Brushes.Transparent;
-            btnMC2.Background = Brushes.Transparent;
-            btnMR.Background = Brushes.Transparent;
-            btnMR2.Background = Brushes.Transparent;
+            btnMC.Background = Brushes.LightBlue;
+            btnMC2.Background = Brushes.LightBlue;
+            btnMR.Background = Brushes.LightBlue;
+            btnMR2.Background = Brushes.LightBlue;
+            btnComma3.Background = Brushes.LightBlue;
 
 
         }
@@ -418,11 +419,11 @@ namespace Calculator3
             txtDisplayBinLabel.Visibility = Visibility.Hidden;
 
             // Memory area clearing
-            btnMC.Background = Brushes.Transparent;
-            btnMC2.Background = Brushes.Transparent;
-            btnMR.Background = Brushes.Transparent;
-            btnMR2.Background = Brushes.Transparent;
-
+            btnMC.Background = Brushes.LightBlue;
+            btnMC2.Background = Brushes.LightBlue;
+            btnMR.Background = Brushes.LightBlue;
+            btnMR2.Background = Brushes.LightBlue;
+            btnComma3.Background = Brushes.LightBlue;
         }
 
         private void BtnProgrammer_Click(object sender, RoutedEventArgs e)
@@ -566,10 +567,11 @@ namespace Calculator3
             txtDisplayBinLabel.Visibility = Visibility.Visible;
 
             // Memory area clearing
-            btnMC.Background = Brushes.Transparent;
-            btnMC2.Background = Brushes.Transparent;
-            btnMR.Background = Brushes.Transparent;
-            btnMR2.Background = Brushes.Transparent;
+            btnMC.Background = Brushes.LightBlue;
+            btnMC2.Background = Brushes.LightBlue;
+            btnMR.Background = Brushes.LightBlue;
+            btnMR2.Background = Brushes.LightBlue;
+            btnComma3.Background = Brushes.LightBlue;
 
         }
 
@@ -890,12 +892,20 @@ namespace Calculator3
         {
             string str = "";
             bool flag = false;
+            bool bExpNumber = false; //marker if number on display is presented in 2.468888883951111e+21 format
             str = txtDisplay.Text;
             foreach (char c in str)
             {
                 if (c == ',')
                 {
                     flag = true;
+                }
+            }
+            foreach (char c in str)
+            {
+                if (c == 'e')
+                {
+                    bExpNumber = true;
                 }
             }
             if (!flag)
@@ -982,13 +992,13 @@ namespace Calculator3
                 // coloring the buttons
                 if (bStandart)
                 {
-                    btnMR.Background = Brushes.LightGray;
-                    btnMC.Background = Brushes.LightGray;
+                    btnMR.Background = Brushes.LightSkyBlue;
+                    btnMC.Background = Brushes.LightSkyBlue;
                 }
                 else if (bScientific)
                 {
-                    btnMC2.Background = Brushes.LightGray;
-                    btnMR2.Background = Brushes.LightGray;
+                    btnMC2.Background = Brushes.LightSkyBlue;
+                    btnMR2.Background = Brushes.LightSkyBlue;
                 }
             }
         }
@@ -1011,13 +1021,13 @@ namespace Calculator3
                 // coloring the buttons
                 if (bStandart)
                 {
-                    btnMR.Background = Brushes.LightGray;
-                    btnMC.Background = Brushes.LightGray;
+                    btnMR.Background = Brushes.LightSkyBlue;
+                    btnMC.Background = Brushes.LightSkyBlue;
                 }
                 else if (bScientific)
                 {
-                    btnMC2.Background = Brushes.LightGray;
-                    btnMR2.Background = Brushes.LightGray;
+                    btnMC2.Background = Brushes.LightSkyBlue;
+                    btnMR2.Background = Brushes.LightSkyBlue;
                 }
             }
         }
@@ -1040,13 +1050,13 @@ namespace Calculator3
                 // coloring the buttons
                 if (bStandart)
                 {
-                    btnMR.Background = Brushes.LightGray;
-                    btnMC.Background = Brushes.LightGray;
+                    btnMR.Background = Brushes.LightSkyBlue;
+                    btnMC.Background = Brushes.LightSkyBlue;
                 }
                 else if (bScientific)
                 {
-                    btnMC2.Background = Brushes.LightGray;
-                    btnMR2.Background = Brushes.LightGray;
+                    btnMC2.Background = Brushes.LightSkyBlue;
+                    btnMR2.Background = Brushes.LightSkyBlue;
                 }
             }
         }
@@ -1142,7 +1152,7 @@ namespace Calculator3
 
         private void DisplayNumberProgrammer(long num = 0)
         {
-            
+
             txtDisplayHex.Text = ConvertToHex((Int64)num);
             txtDisplayDec.Text = num.ToString();
             txtDisplayOct.Text = ConvertToOct((Int64)num);
@@ -1151,7 +1161,7 @@ namespace Calculator3
 
         private string ConvertToBin(long n = 0)
         {
-            
+
             string str = Convert.ToString(n, 2);
 
             return str;
@@ -1159,7 +1169,7 @@ namespace Calculator3
 
         private string ConvertToHex(long n = 0)
         {
-            
+
             string str = Convert.ToString(n, 16);
 
             return str;
