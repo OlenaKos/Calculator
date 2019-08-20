@@ -28,7 +28,9 @@ namespace Calculator3
         //double fractional1 = 0.1;
         //double fractional2 = 0.1;
         double memory = 0;
-        bool bProgrammer = false;
+        bool bStandart = true; // marker of Standart tab appeared or no
+        bool bScientific = false; // marker of Scientific tab appeared or no
+        bool bProgrammer = false; // marker of Programmer tab appeared or no
         bool flag1 = true;
 
 
@@ -130,10 +132,14 @@ namespace Calculator3
             operation = "";
             operation2 = "";
             comma = "";
+            memory = 0;
+            txtMemory.Text = "0";
             //fractional1 = 0.1;
             //fractional2 = 0.1;
             txtDisplay.Text = "0";
-            bProgrammer = false;
+            bStandart = true; // marker of Standart tab appeared or no
+            bScientific = false; // marker of Scientific tab appeared or no
+            bProgrammer = false; // marker of Programmer tab appeared or no
             DisplayNumberProgrammer(0);
 
             btnMC2.Visibility = Visibility.Hidden;
@@ -260,6 +266,12 @@ namespace Calculator3
             txtDisplayBin.Visibility = Visibility.Hidden;
             txtDisplayBinLabel.Visibility = Visibility.Hidden;
 
+            // Memory area clearing
+            btnMC.Background = Brushes.Transparent;
+            btnMC2.Background = Brushes.Transparent;
+            btnMR.Background = Brushes.Transparent;
+            btnMR2.Background = Brushes.Transparent;
+
 
         }
 
@@ -270,10 +282,14 @@ namespace Calculator3
             operation = "";
             operation2 = "";
             comma = "";
+            memory = 0;
+            txtMemory.Text = "0";
             //fractional1 = 0.1;
             //fractional2 = 0.1;
             txtDisplay.Text = "0";
-            bProgrammer = false;
+            bStandart = false; // marker of Standart tab appeared or no
+            bScientific = true; // marker of Scientific tab appeared or no
+            bProgrammer = false; // marker of Programmer tab appeared or no
             DisplayNumberProgrammer(0);
 
             btnMC2.Visibility = Visibility.Visible;
@@ -401,6 +417,12 @@ namespace Calculator3
             txtDisplayBin.Visibility = Visibility.Hidden;
             txtDisplayBinLabel.Visibility = Visibility.Hidden;
 
+            // Memory area clearing
+            btnMC.Background = Brushes.Transparent;
+            btnMC2.Background = Brushes.Transparent;
+            btnMR.Background = Brushes.Transparent;
+            btnMR2.Background = Brushes.Transparent;
+
         }
 
         private void BtnProgrammer_Click(object sender, RoutedEventArgs e)
@@ -410,10 +432,14 @@ namespace Calculator3
             operation = "";
             operation2 = "";
             comma = "";
+            memory = 0;
+            txtMemory.Text = "0";
             //fractional1 = 0.1;
             //fractional2 = 0.1;
             txtDisplay.Text = "0";
-            bProgrammer = true;
+            bStandart = false; // marker of Standart tab appeared or no
+            bScientific = false; // marker of Scientific tab appeared or no
+            bProgrammer = true; // marker of Programmer tab appeared or no
             DisplayNumberProgrammer(0);
 
 
@@ -538,6 +564,12 @@ namespace Calculator3
             txtDisplayOctLabel.Visibility = Visibility.Visible;
             txtDisplayBin.Visibility = Visibility.Visible;
             txtDisplayBinLabel.Visibility = Visibility.Visible;
+
+            // Memory area clearing
+            btnMC.Background = Brushes.Transparent;
+            btnMC2.Background = Brushes.Transparent;
+            btnMR.Background = Brushes.Transparent;
+            btnMR2.Background = Brushes.Transparent;
 
         }
 
@@ -931,92 +963,94 @@ namespace Calculator3
 
         private void BtnPercent_Click(object sender, RoutedEventArgs e)
         {
-            operation2 = "%";
-            txtDisplay.Text = "%";
+            if (number1 != 0)
+            {
+                operation2 = "%";
+                txtDisplay.Text = "%";
+            }
+
         }
 
         // Memory
         private void BtnMS_Click(object sender, RoutedEventArgs e)
         {
-            memory = Convert.ToDouble(txtDisplay.Text);
-            txtMemory.Text = txtDisplay.Text;
-            btnMR.Background = Brushes.LightGray;
-            btnMR2.Background = Brushes.LightGray;
-            btnMC.Background = Brushes.LightGray;
-            btnMC2.Background = Brushes.LightGray;
+            bool b = CheckForDigit();
+            if (b)
+            {
+                memory = Convert.ToDouble(txtDisplay.Text);
+                txtMemory.Text = txtDisplay.Text;
+                // coloring the buttons
+                if (bStandart)
+                {
+                    btnMR.Background = Brushes.LightGray;
+                    btnMC.Background = Brushes.LightGray;
+                }
+                else if (bScientific)
+                {
+                    btnMC2.Background = Brushes.LightGray;
+                    btnMR2.Background = Brushes.LightGray;
+                }
+            }
         }
 
         private void BtnMMinus_Click(object sender, RoutedEventArgs e)
         {
-            memory -= Convert.ToDouble(txtDisplay.Text);
-            if (operation == "")
+            bool b = CheckForDigit();
+            if (b)
             {
-                number1 = 0;
+                memory -= Convert.ToDouble(txtDisplay.Text);
+                if (operation == "")
+                {
+                    number1 = 0;
+                }
+                else
+                {
+                    number2 = 0;
+                }
+                txtMemory.Text = memory.ToString();
+                // coloring the buttons
+                if (bStandart)
+                {
+                    btnMR.Background = Brushes.LightGray;
+                    btnMC.Background = Brushes.LightGray;
+                }
+                else if (bScientific)
+                {
+                    btnMC2.Background = Brushes.LightGray;
+                    btnMR2.Background = Brushes.LightGray;
+                }
             }
-            else
-            {
-                number2 = 0;
-            }
-            txtMemory.Text = memory.ToString();
-            btnMR.Background = Brushes.LightGray;
-            btnMC.Background = Brushes.LightGray;
         }
 
         private void BtnMPlus_Click(object sender, RoutedEventArgs e)
         {
-            memory += Convert.ToDouble(txtDisplay.Text);
-            if (operation == "")
+            bool b = CheckForDigit();
+            if (b)
             {
-                number1 = 0;
+                memory += Convert.ToDouble(txtDisplay.Text);
+                if (operation == "")
+                {
+                    number1 = 0;
+                }
+                else
+                {
+                    number2 = 0;
+                }
+                txtMemory.Text = memory.ToString();
+                // coloring the buttons
+                if (bStandart)
+                {
+                    btnMR.Background = Brushes.LightGray;
+                    btnMC.Background = Brushes.LightGray;
+                }
+                else if (bScientific)
+                {
+                    btnMC2.Background = Brushes.LightGray;
+                    btnMR2.Background = Brushes.LightGray;
+                }
             }
-            else
-            {
-                number2 = 0;
-            }
-            txtMemory.Text = memory.ToString();
-            btnMR.Background = Brushes.LightGray;
-            btnMC.Background = Brushes.LightGray;
         }
 
-        private void BtnMS2_Click(object sender, RoutedEventArgs e)
-        {
-            memory = Convert.ToDouble(txtDisplay.Text);
-            txtMemory.Text = txtDisplay.Text;
-            btnMR2.Background = Brushes.LightGray;
-            btnMC2.Background = Brushes.LightGray;
-        }
-
-        private void BtnMMinus2_Click(object sender, RoutedEventArgs e)
-        {
-            memory -= Convert.ToDouble(txtDisplay.Text);
-            if (operation == "")
-            {
-                number1 = 0;
-            }
-            else
-            {
-                number2 = 0;
-            }
-            txtMemory.Text = memory.ToString();
-            btnMR2.Background = Brushes.LightGray;
-            btnMC2.Background = Brushes.LightGray;
-        }
-
-        private void BtnMPlus2_Click(object sender, RoutedEventArgs e)
-        {
-            memory += Convert.ToDouble(txtDisplay.Text);
-            if (operation == "")
-            {
-                number1 = 0;
-            }
-            else
-            {
-                number2 = 0;
-            }
-            txtMemory.Text = memory.ToString();
-            btnMR2.Background = Brushes.LightGray;
-            btnMC2.Background = Brushes.LightGray;
-        }
 
         private void BtnMR_Click(object sender, RoutedEventArgs e)
         {
@@ -1086,7 +1120,6 @@ namespace Calculator3
 
         private void EnterNumberProgrammer(byte n = 0)
         {
-
             if (operation == "")
             {
                 number1 = (number1 * 10) + n;
@@ -1109,7 +1142,7 @@ namespace Calculator3
 
         private void DisplayNumberProgrammer(long num = 0)
         {
-
+            
             txtDisplayHex.Text = ConvertToHex((Int64)num);
             txtDisplayDec.Text = num.ToString();
             txtDisplayOct.Text = ConvertToOct((Int64)num);
@@ -1118,7 +1151,7 @@ namespace Calculator3
 
         private string ConvertToBin(long n = 0)
         {
-
+            
             string str = Convert.ToString(n, 2);
 
             return str;
@@ -1126,7 +1159,7 @@ namespace Calculator3
 
         private string ConvertToHex(long n = 0)
         {
-
+            
             string str = Convert.ToString(n, 16);
 
             return str;
@@ -1236,20 +1269,29 @@ namespace Calculator3
             }
             else if (operation2 == "%")
             {
-                double res = ((double)number1 / 100) * (double)number2;
-                switch (operation)
+                if (operation != "")
                 {
-                    case "+":
-                        txtDisplay.Text = (number1 + res).ToString();
-                        break;
-                    case "-":
-                        txtDisplay.Text = (number1 - res).ToString();
-                        break;
-                    case "*":
-                        txtDisplay.Text = res.ToString();
-                        break;
+                    double res = ((double)number1 / 100) * (double)number2;
+                    switch (operation)
+                    {
+                        case "+":
+                            txtDisplay.Text = (number1 + res).ToString();
+                            break;
+                        case "-":
+                            txtDisplay.Text = (number1 - res).ToString();
+                            break;
+                        case "*":
+                            txtDisplay.Text = res.ToString();
+                            break;
+                    }
+                }
+                else
+                {
+                    number1 = 0;
+                    txtDisplay.Text = "0";
                 }
             }
+
 
             if (txtDisplay.Text != "Division by zero is not allowed")
             {
