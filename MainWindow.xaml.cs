@@ -589,8 +589,110 @@ namespace Calculator3
             }
         }
 
-
         //section standart
+        // digits
+        private void Btn0_Click(object sender, RoutedEventArgs e)
+        {
+            if (bProgrammer)
+                EnterNumberProgrammer();
+            else
+            {
+                EnterNumber();
+            }
+        }
+
+        private void Btn1_Click(object sender, RoutedEventArgs e)
+        {
+            if (bProgrammer)
+                EnterNumberProgrammer(1);
+            else
+            {
+                EnterNumber(1);
+            }
+        }
+
+        private void Btn2_Click(object sender, RoutedEventArgs e)
+        {
+            if (bProgrammer)
+                EnterNumberProgrammer(2);
+            else
+            {
+                EnterNumber(2);
+            }
+        }
+
+        private void Btn3_Click(object sender, RoutedEventArgs e)
+        {
+            if (bProgrammer)
+                EnterNumberProgrammer(3);
+            else
+            {
+                EnterNumber(3);
+            }
+        }
+
+        private void Btn9_Click(object sender, RoutedEventArgs e)
+        {
+            if (bProgrammer)
+                EnterNumberProgrammer(9);
+            else
+            {
+                EnterNumber(9);
+            }
+        }
+
+        private void Btn8_Click(object sender, RoutedEventArgs e)
+        {
+            if (bProgrammer)
+                EnterNumberProgrammer(8);
+            else
+            {
+                EnterNumber(8);
+            }
+        }
+
+        private void Btn7_Click(object sender, RoutedEventArgs e)
+        {
+            if (bProgrammer)
+                EnterNumberProgrammer(7);
+            else
+            {
+                EnterNumber(7);
+            }
+        }
+
+        private void Btn6_Click(object sender, RoutedEventArgs e)
+        {
+            if (bProgrammer)
+                EnterNumberProgrammer(6);
+            else
+            {
+                EnterNumber(6);
+            }
+        }
+
+        private void Btn5_Click(object sender, RoutedEventArgs e)
+        {
+            if (bProgrammer)
+                EnterNumberProgrammer(5);
+            else
+            {
+                EnterNumber(5);
+            }
+        }
+
+        private void Btn4_Click(object sender, RoutedEventArgs e)
+        {
+            if (bProgrammer)
+                EnterNumberProgrammer(4);
+            else
+            {
+                EnterNumber(4);
+            }
+        }
+
+
+        //functional
         private void BtnEquals_Click(object sender, RoutedEventArgs e)
         {
             Calculate();
@@ -621,14 +723,78 @@ namespace Calculator3
             return b;
         }
 
-
-        private void Btn0_Click(object sender, RoutedEventArgs e)
+        private void BtnBackSpase_Click(object sender, RoutedEventArgs e)
         {
-            if (bProgrammer)
-                EnterNumberProgrammer();
+            string str = "";
+            bool flag = false;
+            bool bExpNumber = false; //marker if number on display is presented in 2.468888883951111e+21 format
+            str = txtDisplay.Text;
+            foreach (char c in str)
+            {
+                if (c == ',')
+                {
+                    flag = true;
+                }
+            }
+            foreach (char c in str)
+            {
+                if (c == 'E')
+                {
+                    bExpNumber = true;
+                }
+            }
+
+            if (!flag)
+            {
+                if (operation == "")
+                {
+                    number1 = (int)number1 / 10;
+                    txtDisplay.Text = number1.ToString();
+                }
+                else
+                {
+                    number2 = (int)number2 / 10;
+                    txtDisplay.Text = number1.ToString();
+                }
+            }
+            else if (!bExpNumber)
+            {
+                if (operation == "")
+                {
+                    int length = str.Length - 1;
+                    if (str[length] == ',')
+                    {
+                        comma = "";
+                    }
+                    str = str.Remove(length);
+                    txtDisplay.Text = str;
+                    number1 = Convert.ToDouble(str);
+                }
+                else
+                {
+                    int length = str.Length - 1;
+                    str = str.Remove(length);
+                    txtDisplay.Text = str;
+                    number2 = Convert.ToDouble(str);
+                }
+            }
+
+        }
+
+        // math
+        private void BtnMinus_Click(object sender, RoutedEventArgs e)
+        {
+            comma = "";
+            if (operation == "")
+            {
+                number1 = Double.Parse(txtDisplay.Text);
+                number2 = 0;
+                EnterOperation("-");
+            }
             else
             {
-                EnterNumber();
+                Calculate();
+                EnterOperation("-");
             }
         }
 
@@ -692,36 +858,6 @@ namespace Calculator3
             }
         }
 
-        private void Btn3_Click(object sender, RoutedEventArgs e)
-        {
-            if (bProgrammer)
-                EnterNumberProgrammer(3);
-            else
-            {
-                EnterNumber(3);
-            }
-        }
-
-        private void Btn2_Click(object sender, RoutedEventArgs e)
-        {
-            if (bProgrammer)
-                EnterNumberProgrammer(2);
-            else
-            {
-                EnterNumber(2);
-            }
-        }
-
-        private void Btn1_Click(object sender, RoutedEventArgs e)
-        {
-            if (bProgrammer)
-                EnterNumberProgrammer(1);
-            else
-            {
-                EnterNumber(1);
-            }
-        }
-
         private void BtnX3_Click(object sender, RoutedEventArgs e)
         {
             if (operation == "")
@@ -733,52 +869,6 @@ namespace Calculator3
             {
                 number2 = Math.Pow(number2, 3);
                 txtDisplay.Text = number2.ToString();
-            }
-        }
-
-        private void BtnMinus_Click(object sender, RoutedEventArgs e)
-        {
-            comma = "";
-            if (operation == "")
-            {
-                number1 = Double.Parse(txtDisplay.Text);
-                number2 = 0;
-                EnterOperation("-");
-            }
-            else
-            {
-                Calculate();
-                EnterOperation("-");
-            }
-        }
-
-        private void Btn6_Click(object sender, RoutedEventArgs e)
-        {
-            if (bProgrammer)
-                EnterNumberProgrammer(6);
-            else
-            {
-                EnterNumber(6);
-            }
-        }
-
-        private void Btn5_Click(object sender, RoutedEventArgs e)
-        {
-            if (bProgrammer)
-                EnterNumberProgrammer(5);
-            else
-            {
-                EnterNumber(5);
-            }
-        }
-
-        private void Btn4_Click(object sender, RoutedEventArgs e)
-        {
-            if (bProgrammer)
-                EnterNumberProgrammer(4);
-            else
-            {
-                EnterNumber(4);
             }
         }
 
@@ -827,36 +917,6 @@ namespace Calculator3
             //}
         }
 
-        private void Btn9_Click(object sender, RoutedEventArgs e)
-        {
-            if (bProgrammer)
-                EnterNumberProgrammer(9);
-            else
-            {
-                EnterNumber(9);
-            }
-        }
-
-        private void Btn8_Click(object sender, RoutedEventArgs e)
-        {
-            if (bProgrammer)
-                EnterNumberProgrammer(8);
-            else
-            {
-                EnterNumber(8);
-            }
-        }
-
-        private void Btn7_Click(object sender, RoutedEventArgs e)
-        {
-            if (bProgrammer)
-                EnterNumberProgrammer(7);
-            else
-            {
-                EnterNumber(7);
-            }
-        }
-
         private void BtnSqrt_Click(object sender, RoutedEventArgs e)
         {
             if (operation == "")
@@ -888,64 +948,17 @@ namespace Calculator3
             }
         }
 
-        private void BtnBackSpase_Click(object sender, RoutedEventArgs e)
+        private void BtnPercent_Click(object sender, RoutedEventArgs e)
         {
-            string str = "";
-            bool flag = false;
-            bool bExpNumber = false; //marker if number on display is presented in 2.468888883951111e+21 format
-            str = txtDisplay.Text;
-            foreach (char c in str)
+            if (number1 != 0)
             {
-                if (c == ',')
-                {
-                    flag = true;
-                }
-            }
-            foreach (char c in str)
-            {
-                if (c == 'e')
-                {
-                    bExpNumber = true;
-                }
-            }
-            if (!flag)
-            {
-                if (operation == "")
-                {
-                    number1 = (int)number1 / 10;
-                    txtDisplay.Text = number1.ToString();
-                }
-                else
-                {
-                    number2 = (int)number2 / 10;
-                    txtDisplay.Text = number1.ToString();
-                }
-            }
-            else
-            {
-                if (operation == "")
-                {
-                    int length = str.Length - 1;
-                    if (str[length] == ',')
-                    {
-                        comma = "";
-                    }
-                    str = str.Remove(length);
-                    txtDisplay.Text = str;
-                    number1 = Convert.ToDouble(str);
-                }
-                else
-                {
-                    int length = str.Length - 1;
-                    str = str.Remove(length);
-                    txtDisplay.Text = str;
-                    number2 = Convert.ToDouble(str);
-                }
+                operation2 = "%";
+                txtDisplay.Text = "%";
             }
 
         }
 
-
+        //Clear
         private void BtnC_Click(object sender, RoutedEventArgs e)
         {
             number1 = 0;
@@ -956,6 +969,10 @@ namespace Calculator3
             //fractional1 = 0.1;
             //fractional2 = 0.1;
             txtDisplay.Text = "0";
+            txtDisplayBin.Text = "0";
+            txtDisplayHex.Text = "0";
+            txtDisplayDec.Text = "0";
+            txtDisplayOct.Text = "0";
         }
 
         private void BtnCE_Click(object sender, RoutedEventArgs e)
@@ -969,16 +986,10 @@ namespace Calculator3
                 number2 = 0;
             }
             txtDisplay.Text = "0";
-        }
-
-        private void BtnPercent_Click(object sender, RoutedEventArgs e)
-        {
-            if (number1 != 0)
-            {
-                operation2 = "%";
-                txtDisplay.Text = "%";
-            }
-
+            txtDisplayBin.Text = "0";
+            txtDisplayHex.Text = "0";
+            txtDisplayDec.Text = "0";
+            txtDisplayOct.Text = "0";
         }
 
         // Memory
@@ -1060,7 +1071,6 @@ namespace Calculator3
                 }
             }
         }
-
 
         private void BtnMR_Click(object sender, RoutedEventArgs e)
         {
@@ -1211,6 +1221,7 @@ namespace Calculator3
                 DisplayNumberProgrammer(0);
             }
         }
+
         private void Calculate()
         {
             if (operation2 == "")
@@ -1274,7 +1285,6 @@ namespace Calculator3
                             txtDisplay.Text = number1.ToString();
                             break;
                         }
-
                 }
             }
             else if (operation2 == "%")
@@ -1315,7 +1325,6 @@ namespace Calculator3
         }
 
         // section scientific
-
         private void BtnMod_Click(object sender, RoutedEventArgs e)
         {
             EnterOperation("Mod");
@@ -1422,20 +1431,40 @@ namespace Calculator3
             if (operation == "")
             {
                 number1 = Int32.Parse(txtDisplay.Text);
-                number1 = Factorial((Int32)number1);
-                txtDisplay.Text = number1.ToString();
+                if (number1 > 50)
+                {
+                    txtDisplay.Text = "Too big value";
+                }
+                else
+                {
+                    number1 = Factorial((Int32)number1);
+                    txtDisplay.Text = number1.ToString();
+                }
             }
             else
             {
-                number2 = Factorial((Int32)number2);
-                txtDisplay.Text = number2.ToString();
+                if (number1 > 50)
+                {
+                    txtDisplay.Text = "Too big value";
+                }
+                else
+                {
+                    number2 = Factorial((Int32)number2);
+                    txtDisplay.Text = number2.ToString();
+                }
             }
+
         }
 
         private long Factorial(int n)
         {
-            long fact;
-            try
+            long fact = 0;
+            if (n > 50)
+            {
+                txtDisplay.Text = "Too big value";
+                fact = 1;
+            }
+            else
             {
                 if (n == 0)
                 {
@@ -1446,15 +1475,7 @@ namespace Calculator3
                     fact = n * Factorial(n - 1);
                 }
             }
-
-            catch (System.StackOverflowException)
-            {
-                txtDisplay.Text = "Too big value";
-                fact = 1;
-                throw;
-            }
-
-            return fact;
+            return fact;   
         }
 
         private void BtnTan_Click(object sender, RoutedEventArgs e)
@@ -1511,10 +1532,12 @@ namespace Calculator3
             txtDisplay.Text = "xY";
         }
 
+        //section Programmer
         private void BtnComma3_Click(object sender, RoutedEventArgs e)
         {
             //nothing to do here because will not workl on programmer tab
         }
 
     }
+
 }

@@ -153,8 +153,8 @@
         <Button Style="{StaticResource NStyle}" x:Name="btnMMinus2" Grid.Row="9" Grid.RowSpan="2" Grid.Column="12" Grid.ColumnSpan="4" Click="BtnMMinus_Click">M-</Button>
         <Button Style="{StaticResource NStyle}" x:Name="btnMS2" Grid.Row="9" Grid.RowSpan="2" Grid.Column="16" Grid.ColumnSpan="4" Click="BtnMS_Click">MS</Button>
 
-        <Button Style="{StaticResource Funk}" x:Name="btnX22" Grid.Row="11" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="6" Click="BtnX2_Click">X²</Button>
-        <Button Style="{StaticResource Funk}" x:Name="btnXY" Grid.Row="11" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" Click="BtnXY_Click">XY</Button>
+        <Button Style="{StaticResource Funk}" x:Name="btnX22" Grid.Row="11" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="6" Click="BtnX2_Click">x²</Button>
+        <Button Style="{StaticResource Funk}" x:Name="btnXY" Grid.Row="11" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" Click="BtnXY_Click" Content="x^y"/>
         <Button Style="{StaticResource Funk}" x:Name="btnSin"  Grid.Row="11" Grid.RowSpan="3" Grid.Column="12" Grid.ColumnSpan="6" Click="BtnSin_Click">sin</Button>
         <Button Style="{StaticResource Funk}" x:Name="btnCos" Grid.Row="11" Grid.RowSpan="3" Grid.Column="18" Grid.ColumnSpan="6" Click="BtnCos_Click">cos</Button>
         <Button Style="{StaticResource Funk}" x:Name="btnTan" Grid.Row="11" Grid.RowSpan="3" Grid.Column="24" Grid.ColumnSpan="6" Click="BtnTan_Click">tan</Button>
@@ -199,7 +199,7 @@
         <Button Style="{StaticResource Operation}" x:Name="btnMult2" Grid.Row="20" Grid.RowSpan="3" Grid.Column="24" Grid.ColumnSpan="6" Click="BtnMult_Click">x</Button>
 
 
-        <Button Style="{StaticResource Funk}" x:Name="btnX2" Grid.Row="20" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="6" Click="BtnX2_Click">X²</Button>
+        <Button Style="{StaticResource Funk}" x:Name="btnX2" Grid.Row="20" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="6" Click="BtnX2_Click">x²</Button>
         <Button Style="{StaticResource NStyle}" x:Name="btn4" Grid.Row="20" Grid.RowSpan="4" Grid.Column="6" Grid.ColumnSpan="6" Click="Btn4_Click">4</Button>
         <Button Style="{StaticResource NStyle}" x:Name="btn5"  Grid.Row="20" Grid.RowSpan="4" Grid.Column="12" Grid.ColumnSpan="6" Click="Btn5_Click">5</Button>
         <Button Style="{StaticResource NStyle}" x:Name="btn6" Grid.Row="20" Grid.RowSpan="4" Grid.Column="18" Grid.ColumnSpan="6" Click="Btn6_Click">6</Button>
@@ -212,7 +212,7 @@
         <Button Style="{StaticResource Operation}" x:Name="btnMinus2" Grid.Row="23" Grid.RowSpan="3" Grid.Column="24" Grid.ColumnSpan="6" Click="BtnMinus_Click">-</Button>
 
 
-        <Button Style="{StaticResource Funk}" x:Name="btnX3" Grid.Row="24" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="6" Click="BtnX3_Click">X3</Button>
+        <Button Style="{StaticResource Funk}" x:Name="btnX3" Grid.Row="24" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="6" Click="BtnX3_Click" Content="x³"/>
         <Button Style="{StaticResource NStyle}" x:Name="btn1" Grid.Row="24" Grid.RowSpan="4" Grid.Column="6" Grid.ColumnSpan="6" Click="Btn1_Click">1</Button>
         <Button Style="{StaticResource NStyle}" x:Name="btn2"  Grid.Row="24" Grid.RowSpan="4" Grid.Column="12" Grid.ColumnSpan="6" Click="Btn2_Click">2</Button>
         <Button Style="{StaticResource NStyle}" x:Name="btn3" Grid.Row="24" Grid.RowSpan="4" Grid.Column="18" Grid.ColumnSpan="6" Click="Btn3_Click">3</Button>
