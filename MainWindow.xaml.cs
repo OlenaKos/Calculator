@@ -564,12 +564,29 @@ namespace Calculator3
 
         private void BtnComma_Click(object sender, RoutedEventArgs e)
         {
-            if (comma == "")
+            bool b = CheckForDigit();
+            if (b)
             {
-                comma = ",";
-                txtDisplay.Text += ",";
+                if (comma == "")
+                {
+                    comma = ",";
+                    txtDisplay.Text += ",";
+                }
             }
         }
+
+        private bool CheckForDigit()
+        {
+            bool b = false;
+            string s = txtDisplay.Text;
+            int length = s.Length - 1;
+            if (Char.IsDigit(s[length]))
+            {
+                b = true;
+            }
+            return b;
+        }
+
 
         private void Btn0_Click(object sender, RoutedEventArgs e)
         {
