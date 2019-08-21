@@ -696,6 +696,7 @@ namespace Calculator3
         private void BtnEquals_Click(object sender, RoutedEventArgs e)
         {
             Calculate();
+            number1 = 0;
         }
 
         private void BtnComma_Click(object sender, RoutedEventArgs e)
@@ -826,6 +827,7 @@ namespace Calculator3
             {
                 if (number1 == 0)
                 {
+                    txtDisplay.FontSize = 35;
                     txtDisplay.Text = "Division by zero";
                 }
                 else
@@ -955,7 +957,6 @@ namespace Calculator3
                 operation2 = "%";
                 txtDisplay.Text = "%";
             }
-
         }
 
         //Clear
@@ -1253,10 +1254,8 @@ namespace Calculator3
                     case "/":
                         if (number2 == 0)
                         {
-                            //double fSize = txtDisplay.FontSize;
-                            //txtDisplay.FontSize = 20;
-                            txtDisplay.Text = "Division by zero is not allowed";
-                            //txtDisplay.FontSize = fSize;
+                            txtDisplay.FontSize = 35;
+                            txtDisplay.Text = "Division by zero";
                         }
                         else
                         {
@@ -1313,7 +1312,7 @@ namespace Calculator3
             }
 
 
-            if (txtDisplay.Text != "Division by zero is not allowed")
+            if (txtDisplay.Text != "Division by zero")
             {
                 number1 = Convert.ToDouble(txtDisplay.Text);
             }
@@ -1379,7 +1378,6 @@ namespace Calculator3
                 number2 = Math.Tanh(number2);
                 txtDisplay.Text = number2.ToString();
             }
-
         }
 
         private void BtnSinh_Click(object sender, RoutedEventArgs e)
@@ -1394,8 +1392,6 @@ namespace Calculator3
                 number2 = Math.Sinh(number2);
                 txtDisplay.Text = number2.ToString();
             }
-
-
         }
 
         private void BtnCosh_Click(object sender, RoutedEventArgs e)
@@ -1430,42 +1426,53 @@ namespace Calculator3
         {
             if (operation == "")
             {
-                number1 = Int32.Parse(txtDisplay.Text);
-                if (number1 > 50)
-                {
-                    txtDisplay.Text = "Too big value";
-                }
-                else
+                number1 = (Int32)(Double.Parse(txtDisplay.Text));
+                if (ValidateForFactorial(number1))
                 {
                     number1 = Factorial((Int32)number1);
                     txtDisplay.Text = number1.ToString();
                 }
+                else
+                {
+                    number1 = 0;
+                }
             }
             else
             {
-                if (number1 > 50)
-                {
-                    txtDisplay.Text = "Too big value";
-                }
-                else
+                if (ValidateForFactorial(number2))
                 {
                     number2 = Factorial((Int32)number2);
                     txtDisplay.Text = number2.ToString();
                 }
+                else
+                {
+                    number2 = 0;
+                }
             }
+        }
 
+        private bool ValidateForFactorial(double number1)
+        {
+            bool result = true;
+
+            if (number1 < 0)
+            {
+                txtDisplay.FontSize = 35;
+                txtDisplay.Text = "Not allowed value";
+                result = false;
+            }
+            if (number1 > 50)
+            {
+                txtDisplay.FontSize = 35;
+                txtDisplay.Text = "Too big value";
+                result = false;
+            }
+            return result;
         }
 
         private long Factorial(int n)
         {
             long fact = 0;
-            if (n > 50)
-            {
-                txtDisplay.Text = "Too big value";
-                fact = 1;
-            }
-            else
-            {
                 if (n == 0)
                 {
                     fact = 1;
@@ -1474,8 +1481,7 @@ namespace Calculator3
                 {
                     fact = n * Factorial(n - 1);
                 }
-            }
-            return fact;   
+            return fact;
         }
 
         private void BtnTan_Click(object sender, RoutedEventArgs e)

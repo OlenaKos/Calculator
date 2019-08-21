@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator3"
         mc:Ignorable="d"
-        Title="Calculator" Height="500" Width="740">
+        Title="Calculator" Height="500" Width="740" >
 
     <Window.Background>
 
@@ -25,6 +25,7 @@
         </Style>
         <Style x:Key="TBSmall">
             <Setter Property="Control.FontSize" Value ="19"/>
+            <Setter Property="Control.FontWeight" Value ="Bold"/>
             <Setter Property="Control.Background" Value ="LightSkyBlue"/>
 
         </Style>
@@ -38,7 +39,7 @@
         </Style>
 
         <Style x:Key="Tab">
-            <Setter Property="Control.FontSize" Value ="11"/>
+            <Setter Property="Control.FontSize" Value ="15"/>
             <Setter Property="Control.Background" Value ="CornflowerBlue"/>
 
         </Style>
@@ -140,9 +141,9 @@
                  VerticalAlignment="Bottom" FontSize="30" BorderThickness="0" 
                  Grid.Row="2" Grid.Column="30" Grid.ColumnSpan="10" Grid.RowSpan="3">0</TextBox>
 
-        <Button Style="{StaticResource Tab}" x:Name="btnStandart" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="4" Click="BtnStandart_Click">Common</Button>
-        <Button Style="{StaticResource Tab}" x:Name="btnScientific" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="4" Click="BtnScientific_Click">Scientific</Button>
-        <Button Style="{StaticResource Tab}" x:Name="btnProgrammer" Grid.Row="0" Grid.RowSpan="2" Grid.Column="8" Grid.ColumnSpan="4" Click="BtnProgrammer_Click">Programmer</Button>
+        <Button Style="{StaticResource Tab}" x:Name="btnStandart" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="5" Click="BtnStandart_Click">Common</Button>
+        <Button Style="{StaticResource Tab}" x:Name="btnScientific" Grid.Row="0" Grid.RowSpan="2" Grid.Column="5" Grid.ColumnSpan="5" Click="BtnScientific_Click">Scientific</Button>
+        <Button Style="{StaticResource Tab}" x:Name="btnProgrammer" Grid.Row="0" Grid.RowSpan="2" Grid.Column="10" Grid.ColumnSpan="5" Click="BtnProgrammer_Click">Programmer</Button>
         <TextBox Style="{StaticResource TB}" x:Name="txtDisplay" IsReadOnly="True" TextAlignment="Right" 
                  VerticalAlignment="Bottom" FontSize="40" BorderThickness="0" 
                  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="30" Grid.RowSpan="3">0</TextBox>
@@ -154,7 +155,7 @@
         <Button Style="{StaticResource NStyle}" x:Name="btnMS2" Grid.Row="9" Grid.RowSpan="2" Grid.Column="16" Grid.ColumnSpan="4" Click="BtnMS_Click">MS</Button>
 
         <Button Style="{StaticResource Funk}" x:Name="btnX22" Grid.Row="11" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="6" Click="BtnX2_Click">x²</Button>
-        <Button Style="{StaticResource Funk}" x:Name="btnXY" Grid.Row="11" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" Click="BtnXY_Click" Content="x^y"/>
+        <Button Style="{StaticResource Funk}" x:Name="btnXY" Grid.Row="11" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" Click="BtnXY_Click" Content="xʸ"/>
         <Button Style="{StaticResource Funk}" x:Name="btnSin"  Grid.Row="11" Grid.RowSpan="3" Grid.Column="12" Grid.ColumnSpan="6" Click="BtnSin_Click">sin</Button>
         <Button Style="{StaticResource Funk}" x:Name="btnCos" Grid.Row="11" Grid.RowSpan="3" Grid.Column="18" Grid.ColumnSpan="6" Click="BtnCos_Click">cos</Button>
         <Button Style="{StaticResource Funk}" x:Name="btnTan" Grid.Row="11" Grid.RowSpan="3" Grid.Column="24" Grid.ColumnSpan="6" Click="BtnTan_Click">tan</Button>
@@ -167,7 +168,7 @@
         <Button Style="{StaticResource NStyle}" x:Name="btnMS" Grid.Row="10" Grid.RowSpan="2" Grid.Column="16" Grid.ColumnSpan="4" Click="BtnMS_Click">MS</Button>
 
         <Button Style="{StaticResource Funk}" x:Name="btnSqrt2" Grid.Row="14" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="6" Click="BtnSqrt_Click">√</Button>
-        <Button Style="{StaticResource Funk}" x:Name="btn10X" Grid.Row="14" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" Click="Btn10X_Click">10X</Button>
+        <Button Style="{StaticResource Funk}" x:Name="btn10X" Grid.Row="14" Grid.RowSpan="3" Grid.Column="6" Grid.ColumnSpan="6" Click="Btn10X_Click">10ˣ</Button>
         <Button Style="{StaticResource Funk}" x:Name="btnLog"  Grid.Row="14" Grid.RowSpan="3" Grid.Column="12" Grid.ColumnSpan="6" Click="BtnLog_Click">log</Button>
         <Button Style="{StaticResource Funk}" x:Name="btnExp" Grid.Row="14" Grid.RowSpan="3" Grid.Column="18" Grid.ColumnSpan="6" Click="BtnExp_Click">Exp</Button>
         <Button Style="{StaticResource Funk}" x:Name="btnMod" Grid.Row="14" Grid.RowSpan="3" Grid.Column="24" Grid.ColumnSpan="6" Click="BtnMod_Click">Mod</Button>
