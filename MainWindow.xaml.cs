@@ -32,7 +32,8 @@ namespace Calculator3
         bool bScientific = false; // marker of Scientific tab appeared or no
         bool bProgrammer = false; // marker of Programmer tab appeared or no
         bool flag1 = true;
-
+        bool divZero = false;
+        double numberTemp = 0;
 
         public MainWindow()
         {
@@ -137,6 +138,7 @@ namespace Calculator3
             //fractional1 = 0.1;
             //fractional2 = 0.1;
             txtDisplay.Text = "0";
+            txtDisplay2.Text = ""; //journal
             bStandart = true; // marker of Standart tab appeared or no
             bScientific = false; // marker of Scientific tab appeared or no
             bProgrammer = false; // marker of Programmer tab appeared or no
@@ -288,6 +290,7 @@ namespace Calculator3
             //fractional1 = 0.1;
             //fractional2 = 0.1;
             txtDisplay.Text = "0";
+            txtDisplay2.Text = "";
             bStandart = false; // marker of Standart tab appeared or no
             bScientific = true; // marker of Scientific tab appeared or no
             bProgrammer = false; // marker of Programmer tab appeared or no
@@ -438,11 +441,11 @@ namespace Calculator3
             //fractional1 = 0.1;
             //fractional2 = 0.1;
             txtDisplay.Text = "0";
+            txtDisplay2.Text = "";
             bStandart = false; // marker of Standart tab appeared or no
             bScientific = false; // marker of Scientific tab appeared or no
             bProgrammer = true; // marker of Programmer tab appeared or no
             DisplayNumberProgrammer(0);
-
 
             btnMC2.Visibility = Visibility.Hidden;
             btnMR2.Visibility = Visibility.Hidden;
@@ -693,10 +696,26 @@ namespace Calculator3
 
 
         //functional
+        //section standart
         private void BtnEquals_Click(object sender, RoutedEventArgs e)
         {
-            Calculate();
-            number1 = 0;
+            bool b = CheckForDigit();
+            if (b)
+            {
+                if (operation2 != "")
+                {
+                    Calculate2();
+                }
+                if (operation != "")
+                {
+                    Calculate();
+                }
+                else
+                {
+                    number1 = 0;
+                }
+            }
+            txtDisplay2.Text = "";
         }
 
         private void BtnComma_Click(object sender, RoutedEventArgs e)
@@ -712,23 +731,12 @@ namespace Calculator3
             }
         }
 
-        private bool CheckForDigit()
-        {
-            bool b = false;
-            string s = txtDisplay.Text;
-            int length = s.Length - 1;
-            if (Char.IsDigit(s[length]))
-            {
-                b = true;
-            }
-            return b;
-        }
+
 
         private void BtnBackSpase_Click(object sender, RoutedEventArgs e)
         {
-            string str = "";
             bool flag = false;
-            bool bExpNumber = false; //marker if number on display is presented in 2.468888883951111e+21 format
+            string str = "";
             str = txtDisplay.Text;
             foreach (char c in str)
             {
@@ -737,14 +745,6 @@ namespace Calculator3
                     flag = true;
                 }
             }
-            foreach (char c in str)
-            {
-                if (c == 'E')
-                {
-                    bExpNumber = true;
-                }
-            }
-
             if (!flag)
             {
                 if (operation == "")
@@ -754,53 +754,51 @@ namespace Calculator3
                 }
                 else
                 {
-                    number2 = (int)number2 / 10;
-                    txtDisplay.Text = number1.ToString();
+                    if (number2 != 0)
+                    {
+                        number2 = (int)number2 / 10;
+                        txtDisplay.Text = number2.ToString();
+                    }
                 }
             }
-            else if (!bExpNumber)
+            else
             {
                 if (operation == "")
                 {
-                    int length = str.Length - 1;
-                    if (str[length] == ',')
-                    {
-                        comma = "";
-                    }
-                    str = str.Remove(length);
-                    txtDisplay.Text = str;
+                    DeleteLastCharacter();
                     number1 = Convert.ToDouble(str);
                 }
                 else
                 {
-                    int length = str.Length - 1;
-                    str = str.Remove(length);
-                    txtDisplay.Text = str;
-                    number2 = Convert.ToDouble(str);
+                    if (number2 != 0)
+                    {
+                        DeleteLastCharacter();
+                        number2 = Convert.ToDouble(str);
+                    }
                 }
             }
-
         }
 
         // math
         private void BtnMinus_Click(object sender, RoutedEventArgs e)
         {
             comma = "";
-            if (operation == "")
+            if (operation2 != "")
             {
-                number1 = Double.Parse(txtDisplay.Text);
-                number2 = 0;
-                EnterOperation("-");
+                Calculate2();
             }
-            else
+            if (operation != "")
             {
                 Calculate();
-                EnterOperation("-");
             }
+            EnterOperation("-");
+            txtDisplay2.Text = number1.ToString() + "-";
         }
+
 
         private void BtnPlusMinus_Click(object sender, RoutedEventArgs e)
         {
+            int length = txtDisplay2.Text.Length - 1;
             if (operation == "")
             {
                 number1 *= -1;
@@ -808,6 +806,11 @@ namespace Calculator3
                 if (bProgrammer)
                 {
                     DisplayNumberProgrammer((Int64)number1);
+                }
+                if (number1 < 0)
+                {
+                    txtDisplay2.Text = txtDisplay2.Text.Remove(length);
+                    txtDisplay2.Text += "(" + number1 + ")";
                 }
             }
             else
@@ -818,6 +821,11 @@ namespace Calculator3
                 {
                     DisplayNumberProgrammer((Int64)number2);
                 }
+                if (number2 < 0)
+                {
+                    txtDisplay2.Text = txtDisplay2.Text.Remove(length);
+                    txtDisplay2.Text += "(" + number2 + ")";
+                }
             }
         }
 
@@ -827,48 +835,52 @@ namespace Calculator3
             {
                 if (number1 == 0)
                 {
-                    txtDisplay.FontSize = 35;
                     txtDisplay.Text = "Division by zero";
                 }
                 else
                 {
                     number1 = 1 / number1;
                     txtDisplay.Text = number1.ToString();
+                    txtDisplay2.Text += "1/(" + number1 + ")";
                 }
             }
             else
             {
-                number2 = 1 / number1;
+                number2 = 1 / number2;
                 txtDisplay.Text = number2.ToString();
+                txtDisplay2.Text += "1/(" + number2 + ")";
             }
         }
 
         private void BtnPlus_Click(object sender, RoutedEventArgs e)
         {
-
             comma = "";
-            if (operation == "")
+            if (operation2 != "")
             {
-                number1 = Double.Parse(txtDisplay.Text);
-                number2 = 0;
-                EnterOperation("+");
+                Calculate2();
             }
-            else
+            if (operation != "")
             {
                 Calculate();
-                EnterOperation("+");
             }
+            EnterOperation("+");
+            txtDisplay2.Text = number1.ToString() + "+";
         }
 
         private void BtnX3_Click(object sender, RoutedEventArgs e)
         {
+            int length = txtDisplay2.Text.Length - 1;
             if (operation == "")
             {
+                txtDisplay2.Text = txtDisplay2.Text.Remove(length);
+                txtDisplay2.Text += "cube(" + number1 + ")";
                 number1 = Math.Pow(number1, 3);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text = txtDisplay2.Text.Remove(length);
+                txtDisplay2.Text += "cube(" + number2 + ")";
                 number2 = Math.Pow(number2, 3);
                 txtDisplay.Text = number2.ToString();
             }
@@ -878,11 +890,13 @@ namespace Calculator3
         {
             if (operation == "")
             {
+                txtDisplay2.Text += "sqr(" + number1 + ")";
                 number1 = Math.Pow(number1, 2);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text += "sqr(" + number2 + ")";
                 number2 = Math.Pow(number2, 2);
                 txtDisplay.Text = number2.ToString();
             }
@@ -891,43 +905,30 @@ namespace Calculator3
         private void BtnMult_Click(object sender, RoutedEventArgs e)
         {
             comma = "";
-            if (operation == "")
+            if (operation2 != "")
             {
-                number1 = Double.Parse(txtDisplay.Text);
-                number2 = 0;
-                EnterOperation("*");
+                Calculate2();
             }
-            else
+            if (operation != "")
             {
                 Calculate();
-                EnterOperation("*");
             }
-
-            //{
-            //    if (operation == "")
-            //    {
-            //        operation = "*";
-            //        txtDisplay.Text = "*";
-            //    }
-            //    else
-            //    {
-            //        number1 = number1 * number2;
-            //        number2 = 0;
-            //        txtDisplay.Text = number1.ToString();
-            //    }
-
-            //}
+            EnterOperation("*");
+            txtDisplay2.Text = number1.ToString() + "*";
         }
+
 
         private void BtnSqrt_Click(object sender, RoutedEventArgs e)
         {
             if (operation == "")
             {
+                txtDisplay2.Text += "√(" + number1 + ")";
                 number1 = Math.Sqrt(number1);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text += "√(" + number2 + ")";
                 number2 = Math.Sqrt(number2);
                 txtDisplay.Text = number2.ToString();
             }
@@ -935,31 +936,51 @@ namespace Calculator3
 
         private void BtnDiv_Click(object sender, RoutedEventArgs e)
         {
-
             comma = "";
-            if (operation == "")
+            if (operation2 != "")
             {
-                number1 = Double.Parse(txtDisplay.Text);
-                number2 = 0;
-                EnterOperation("/");
+                Calculate2();
             }
-            else
+            if (operation != "")
             {
                 Calculate();
-                EnterOperation("/");
             }
+            EnterOperation("/");
+            txtDisplay2.Text = number1.ToString() + "/";
         }
 
         private void BtnPercent_Click(object sender, RoutedEventArgs e)
         {
             if (number1 != 0)
             {
-                operation2 = "%";
-                txtDisplay.Text = "%";
+                if (operation != "")
+                {
+                    number2 = ((double)number1 / 100) * (double)number2;
+                }
+                else
+                {
+                    number1 = 0;
+                    txtDisplay.Text = "0";
+                }
+                txtDisplay2.Text += number2.ToString();
             }
         }
-
         //Clear
+
+        private void DeleteLastCharacter()
+        {
+            string str = "";
+            str = txtDisplay.Text;
+            int length = 0;
+            length = str.Length - 1;
+            if (str[length] == ',')
+            {
+                comma = "";
+            }
+            str = str.Remove(length);
+            txtDisplay.Text = str;
+        }
+
         private void BtnC_Click(object sender, RoutedEventArgs e)
         {
             number1 = 0;
@@ -970,9 +991,10 @@ namespace Calculator3
             //fractional1 = 0.1;
             //fractional2 = 0.1;
             txtDisplay.Text = "0";
-            txtDisplayBin.Text = "0";
+            txtDisplay2.Text = "";
             txtDisplayHex.Text = "0";
             txtDisplayDec.Text = "0";
+            txtDisplayBin.Text = "0";
             txtDisplayOct.Text = "0";
         }
 
@@ -987,6 +1009,7 @@ namespace Calculator3
                 number2 = 0;
             }
             txtDisplay.Text = "0";
+            txtDisplay2.Text = "";
             txtDisplayBin.Text = "0";
             txtDisplayHex.Text = "0";
             txtDisplayDec.Text = "0";
@@ -1102,13 +1125,31 @@ namespace Calculator3
             {
                 if (operation == "")
                 {
-                    number1 = (number1 * 10) + n;
-                    txtDisplay.Text = number1.ToString();
+                    if (operation2 != "")
+                    {
+                        DeleteLastCharacter();
+                        numberTemp = (numberTemp * 10) + n;
+                        txtDisplay.Text += numberTemp.ToString();
+                    }
+                    else
+                    {
+                        number1 = (number1 * 10) + n;
+                        txtDisplay.Text = number1.ToString();
+                    }
                 }
                 else
                 {
-                    number2 = (number2 * 10) + n;
-                    txtDisplay.Text = number2.ToString();
+                    if (operation2 != "")
+                    {
+                        DeleteLastCharacter();
+                        numberTemp = (numberTemp * 10) + n;
+                        txtDisplay.Text += numberTemp.ToString();
+                    }
+                    else
+                    {
+                        number2 = (number2 * 10) + n;
+                        txtDisplay.Text = number2.ToString();
+                    }
                 }
             }
             else
@@ -1141,6 +1182,7 @@ namespace Calculator3
 
         private void EnterNumberProgrammer(byte n = 0)
         {
+
             if (operation == "")
             {
                 number1 = (number1 * 10) + n;
@@ -1163,7 +1205,6 @@ namespace Calculator3
 
         private void DisplayNumberProgrammer(long num = 0)
         {
-
             txtDisplayHex.Text = ConvertToHex((Int64)num);
             txtDisplayDec.Text = num.ToString();
             txtDisplayOct.Text = ConvertToOct((Int64)num);
@@ -1172,7 +1213,6 @@ namespace Calculator3
 
         private string ConvertToBin(long n = 0)
         {
-
             string str = Convert.ToString(n, 2);
 
             return str;
@@ -1180,7 +1220,6 @@ namespace Calculator3
 
         private string ConvertToHex(long n = 0)
         {
-
             string str = Convert.ToString(n, 16);
 
             return str;
@@ -1188,7 +1227,6 @@ namespace Calculator3
 
         private string ConvertToOct(long n = 0)
         {
-
             string str = Convert.ToString(n, 8);
 
             return str;
@@ -1216,7 +1254,6 @@ namespace Calculator3
         private void EnterOperation(string s)
         {
             operation = s;
-            txtDisplay.Text = s;
             if (bProgrammer)
             {
                 DisplayNumberProgrammer(0);
@@ -1225,127 +1262,159 @@ namespace Calculator3
 
         private void Calculate()
         {
-            if (operation2 == "")
+            switch (operation)
             {
-                switch (operation)
-                {
-                    case "+":
-                        txtDisplay.Text = (number1 + number2).ToString();
-                        if (bProgrammer)
-                        {
-                            DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));//((Int64)(number1 + number2));
-                        }
-                        break;
-                    case "-":
-                        txtDisplay.Text = (number1 - number2).ToString();
-                        if (bProgrammer)
-                        {
-                            DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));//((Int64)(txtDisplay.Text));
-                        }
-                        break;
-                    case "*":
-                        txtDisplay.Text = (number1 * number2).ToString();
-                        number2 = 0;
-                        if (bProgrammer)
-                        {
-                            DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));
-                        }
-                        break;
-                    case "/":
-                        if (number2 == 0)
-                        {
-                            txtDisplay.FontSize = 35;
-                            txtDisplay.Text = "Division by zero";
-                        }
-                        else
-                        {
-                            txtDisplay.Text = (number1 / number2).ToString();
-                            if (bProgrammer)
-                            {
-                                DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));//((Int64)(number1 / number2));
-                            }
-                        }
-                        break;
-                    case "xY":
-                        {
-                            number1 = Math.Pow(number1, number2);
-                            txtDisplay.Text = number1.ToString();
-                            break;
-                        }
-                    case "Mod":
-                        {
-                            number1 = number1 % number2;
-                            txtDisplay.Text = number1.ToString();
-                            break;
-                        }
-                    case ".e+0":
-                        {
-                            number1 = number1 * Math.Pow(10, number2); //number2;
-                            txtDisplay.Text = number1.ToString();
-                            break;
-                        }
-                }
-            }
-            else if (operation2 == "%")
-            {
-                if (operation != "")
-                {
-                    double res = ((double)number1 / 100) * (double)number2;
-                    switch (operation)
+                case "+":
+                    txtDisplay.Text = (number1 + number2).ToString();
+                    txtDisplay2.Text += number2.ToString() + "=";
+                    if (bProgrammer)
                     {
-                        case "+":
-                            txtDisplay.Text = (number1 + res).ToString();
-                            break;
-                        case "-":
-                            txtDisplay.Text = (number1 - res).ToString();
-                            break;
-                        case "*":
-                            txtDisplay.Text = res.ToString();
-                            break;
+                        DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));//((Int64)(number1 + number2));
                     }
-                }
-                else
-                {
-                    number1 = 0;
-                    txtDisplay.Text = "0";
-                }
+                    break;
+                case "-":
+                    txtDisplay.Text = (number1 - number2).ToString();
+                    txtDisplay2.Text += number2.ToString() + "=";
+                    if (bProgrammer)
+                    {
+                        DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));//((Int64)(txtDisplay.Text));
+                    }
+                    break;
+                case "*":
+                    txtDisplay.Text = (number1 * number2).ToString();
+                    txtDisplay2.Text += number2.ToString() + "=";
+                    number2 = 0;
+                    if (bProgrammer)
+                    {
+                        DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));
+                    }
+                    break;
+                case "/":
+                    if (number2 == 0)
+                    {
+                        txtDisplay.Text = "Division by zero is not allowed";
+                        divZero = true;
+                        number1 = 0;
+                    }
+                    else
+                    {
+                        txtDisplay.Text = (number1 / number2).ToString();
+                        txtDisplay2.Text += number2.ToString() + "=";
+                        if (bProgrammer)
+                        {
+                            DisplayNumberProgrammer(Int64.Parse(txtDisplay.Text));//((Int64)(number1 / number2));
+                        }
+                    }
+                    break;
             }
-
-
-            if (txtDisplay.Text != "Division by zero")
+            if (!divZero || operation != "")
             {
                 number1 = Convert.ToDouble(txtDisplay.Text);
             }
 
             number2 = 0;
             operation = "";
-            operation2 = "";
             comma = "";
+            txtDisplay2.Text = "";
+        }
+
+        private void Calculate2()
+        {
+            if (operation2 == ".e+0")
+            {
+                if (operation == "")
+                {
+                    number1 = number1 * Math.Pow(10, numberTemp);
+                    txtDisplay.Text = number1.ToString();
+                }
+                else
+                {
+                    number2 = number2 * Math.Pow(10, numberTemp);
+                    txtDisplay.Text = number2.ToString();
+                }
+            }
+            else if (operation2 == "Mod")
+            {
+                if (operation == "")
+                {
+                    number1 = number1 % numberTemp;
+                    txtDisplay.Text = number1.ToString();
+                }
+                else
+                {
+                    number2 = number2 % numberTemp;
+                    txtDisplay.Text = number2.ToString();
+                }
+            }
+            else if (operation2 == "xY")
+            {
+                if (operation == "")
+                {
+                    number1 = Math.Pow(number1, numberTemp);
+                    txtDisplay.Text = number1.ToString();
+                }
+                else
+                {
+                    number2 = Math.Pow(number2, numberTemp);
+                    txtDisplay.Text = number2.ToString();
+                }
+            }
+            operation2 = "";
+            numberTemp = 0;
+        }
+
+        private bool CheckForDigit()
+        {
+            bool b = false;
+            string s = txtDisplay.Text;
+            int length = s.Length - 1;
+            if (Char.IsDigit(s[length]))
+            {
+                b = true;
+            }
+            return b;
         }
 
         // section scientific
+
         private void BtnMod_Click(object sender, RoutedEventArgs e)
         {
-            EnterOperation("Mod");
+            operation2 = "Mod";
+            if (operation == "")
+            {
+                txtDisplay2.Text += number1.ToString() + " Mod";
+            }
+            else
+            {
+                txtDisplay2.Text += number2.ToString() + " Mod";
+            }
         }
 
         private void BtnExp_Click(object sender, RoutedEventArgs e)
         {
-            operation = ".e+0";
-            txtDisplay.Text = number1.ToString() + ".e+0";
-            //txtDisplay.Text = number1.ToString() + ".e+0" + number2.ToString();
+            operation2 = ".e+0";
+            if (operation == "")
+            {
+                txtDisplay.Text = number1.ToString() + ".e+" + numberTemp.ToString();
+            }
+            else
+            {
+                txtDisplay.Text = number2.ToString() + ".e+" + numberTemp.ToString();
+            }
         }
 
         private void BtnLog_Click(object sender, RoutedEventArgs e)
         {
             if (operation == "")
             {
+                txtDisplay2.Text += "log(" + number1 + ")";
                 number1 = Math.Log(number1);
                 number1 /= Math.Log(10);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text += "log(" + number2 + ")";
                 number2 = Math.Log(number2);
                 number2 /= Math.Log(10);
                 txtDisplay.Text = number2.ToString();
@@ -1356,11 +1425,13 @@ namespace Calculator3
         {
             if (operation == "")
             {
+                txtDisplay2.Text += "10^(" + number1 + ")";
                 number1 = Math.Pow(10, number1);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text += "10^(" + number2 + ")";
                 number2 = Math.Pow(10, number2);
                 txtDisplay.Text = number2.ToString();
             }
@@ -1370,11 +1441,13 @@ namespace Calculator3
         {
             if (operation == "")
             {
+                txtDisplay2.Text += "tanh(" + number1 + ")";
                 number1 = Math.Tanh(number1);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text += "tanh(" + number2 + ")";
                 number2 = Math.Tanh(number2);
                 txtDisplay.Text = number2.ToString();
             }
@@ -1384,11 +1457,13 @@ namespace Calculator3
         {
             if (operation == "")
             {
+                txtDisplay2.Text += "sinh(" + number1 + ")";
                 number1 = Math.Sinh(number1);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text += "sinh(" + number2 + ")";
                 number2 = Math.Sinh(number2);
                 txtDisplay.Text = number2.ToString();
             }
@@ -1398,11 +1473,13 @@ namespace Calculator3
         {
             if (operation == "")
             {
+                txtDisplay2.Text += "cosh(" + number1 + ")";
                 number1 = Math.Cosh(number1);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text += "cosh(" + number2 + ")";
                 number2 = Math.Cosh(number2);
                 txtDisplay.Text = number2.ToString();
             }
@@ -1431,6 +1508,7 @@ namespace Calculator3
                 {
                     number1 = Factorial((Int32)number1);
                     txtDisplay.Text = number1.ToString();
+                    txtDisplay2.Text += number1.ToString();
                 }
                 else
                 {
@@ -1443,6 +1521,7 @@ namespace Calculator3
                 {
                     number2 = Factorial((Int32)number2);
                     txtDisplay.Text = number2.ToString();
+                    txtDisplay2.Text += number2.ToString();
                 }
                 else
                 {
@@ -1473,14 +1552,14 @@ namespace Calculator3
         private long Factorial(int n)
         {
             long fact = 0;
-                if (n == 0)
-                {
-                    fact = 1;
-                }
-                else
-                {
-                    fact = n * Factorial(n - 1);
-                }
+            if (n == 0)
+            {
+                fact = 1;
+            }
+            else
+            {
+                fact = n * Factorial(n - 1);
+            }
             return fact;
         }
 
@@ -1488,12 +1567,14 @@ namespace Calculator3
         {
             if (operation == "")
             {
+                txtDisplay2.Text += "tan(" + number1 + ")";
                 double radian = number1 * Math.PI / 180;
                 number1 = Math.Tan(radian);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text += "tan(" + number2 + ")";
                 double radian = number2 * Math.PI / 180;
                 number2 = Math.Tan(radian);
                 txtDisplay.Text = number2.ToString();
@@ -1504,12 +1585,14 @@ namespace Calculator3
         {
             if (operation == "")
             {
+                txtDisplay2.Text += "cos(" + number1 + ")";
                 double radian = number1 * Math.PI / 180;
                 number1 = Math.Cos(radian);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text += "cos(" + number2 + ")";
                 double radian = number2 * Math.PI / 180;
                 number2 = Math.Cos(radian);
                 txtDisplay.Text = number2.ToString();
@@ -1520,12 +1603,14 @@ namespace Calculator3
         {
             if (operation == "")
             {
+                txtDisplay2.Text += "sin(" + number1 + ")";
                 double radian = number1 * Math.PI / 180;
                 number1 = Math.Sin(radian);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
+                txtDisplay2.Text += "sin(" + number2 + ")";
                 double radian = number2 * Math.PI / 180;
                 number2 = Math.Sin(radian);
                 txtDisplay.Text = number2.ToString();
@@ -1534,8 +1619,15 @@ namespace Calculator3
 
         private void BtnXY_Click(object sender, RoutedEventArgs e)
         {
-            operation = "xY";
-            txtDisplay.Text = "xY";
+            operation2 = "xY";
+            if (operation == "")
+            {
+                txtDisplay2.Text += number1.ToString() + " ^";
+            }
+            else
+            {
+                txtDisplay2.Text += number2.ToString() + " ^";
+            }
         }
 
         //section Programmer
@@ -1543,7 +1635,5 @@ namespace Calculator3
         {
             //nothing to do here because will not workl on programmer tab
         }
-
     }
-
 }
