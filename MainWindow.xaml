@@ -9,7 +9,7 @@
 
     <Window.Background>
 
-        <ImageBrush ImageSource = "Image/BG.jpg" />
+        <ImageBrush Opacity ="0.75"  ImageSource = "Image/BG.jpg" />
 
     </Window.Background>
 
@@ -244,28 +244,28 @@
 
         <!--Programmer area-->
 
-        <TextBox Style="{StaticResource TBSmall}" Background="Transparent" x:Name="txtDisplayHex" IsReadOnly="True" TextAlignment="Left" 
+        <TextBox Foreground="WhiteSmoke" Style="{StaticResource TBSmall}" Background="Transparent" x:Name="txtDisplayHex" IsReadOnly="True" TextAlignment="Left" 
                  VerticalAlignment="Bottom" FontSize="15" BorderThickness="0" 
                  Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="28" Grid.RowSpan="2">0</TextBox>
-        <TextBox Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayHexLabel" IsReadOnly="True" TextAlignment="Left" 
+        <TextBox Foreground="WhiteSmoke" Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayHexLabel" IsReadOnly="True" TextAlignment="Left" 
                  VerticalAlignment="Bottom" FontSize="15" BorderThickness="0" 
                  Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">HEX</TextBox>
-        <TextBox Style="{StaticResource TBSmall}" Background="Transparent" x:Name="txtDisplayDec" IsReadOnly="True" TextAlignment="Left" 
+        <TextBox Foreground="WhiteSmoke" Style="{StaticResource TBSmall}" Background="Transparent" x:Name="txtDisplayDec" IsReadOnly="True" TextAlignment="Left" 
                  VerticalAlignment="Bottom" FontSize="15" BorderThickness="0" 
                  Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="28" Grid.RowSpan="2">0</TextBox>
-        <TextBox Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayDecLabel" IsReadOnly="True" TextAlignment="Left" 
+        <TextBox Foreground="WhiteSmoke" Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayDecLabel" IsReadOnly="True" TextAlignment="Left" 
                  VerticalAlignment="Bottom" FontSize="15" BorderThickness="0" 
                  Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">DEC</TextBox>
-        <TextBox Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayOct" IsReadOnly="True" TextAlignment="Left" 
+        <TextBox Foreground="WhiteSmoke" Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayOct" IsReadOnly="True" TextAlignment="Left" 
                  VerticalAlignment="Bottom" FontSize="15" BorderThickness="0" 
                  Grid.Row="11" Grid.Column="2" Grid.ColumnSpan="28" Grid.RowSpan="2">0</TextBox>
-        <TextBox Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayOctLabel" IsReadOnly="True" TextAlignment="Left" 
+        <TextBox Foreground="WhiteSmoke" Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayOctLabel" IsReadOnly="True" TextAlignment="Left" 
                  VerticalAlignment="Bottom" FontSize="15" BorderThickness="0" 
                  Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">OCT</TextBox>
-        <TextBox Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayBin" IsReadOnly="True" TextAlignment="Left" 
+        <TextBox Foreground="WhiteSmoke" Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayBin" IsReadOnly="True" TextAlignment="Left" 
                  VerticalAlignment="Bottom" FontSize="15" BorderThickness="0" 
                  Grid.Row="13" Grid.Column="2" Grid.ColumnSpan="28" Grid.RowSpan="2">0</TextBox>
-        <TextBox Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayBinLabel" IsReadOnly="True" TextAlignment="Left" 
+        <TextBox Foreground="WhiteSmoke" Style="{StaticResource TBSmall}" Background="Transparent"  x:Name="txtDisplayBinLabel" IsReadOnly="True" TextAlignment="Left" 
                  VerticalAlignment="Bottom" FontSize="15" BorderThickness="0" 
                  Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">BIN</TextBox>
 
