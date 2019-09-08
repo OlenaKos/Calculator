@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,52 @@ namespace Calculator3
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    public class MyMath
+    {
+        public static double math1X(double x)
+        {
+            double res = 1 / x;
+
+            return res;
+        }
+
+        public static double mathCube(double x)
+        {
+            double res = Math.Pow(x, 3);
+
+            return res;
+        }
+        public static double mathSquare(double x)
+        {
+            return Math.Pow(x, 2);
+        }
+        public static double mathSqrt(double x)
+        {
+            return Math.Sqrt(x);
+        }
+        public static double mathPercent(double x, double y)
+        {
+
+            return (x / 100) * y;
+        }
+        public static double mathAddition(double x, double y)
+        {
+            return x + y;
+        }
+        public static double mathSubtraction(double x, double y)
+        {
+            return x - y;
+        }
+        public static double mathMultiplication(double x, double y)
+        {
+            return x * y;
+        }
+
+        public static double mathDivision(double x, double y)
+        {
+            return x / y;
+        }
+    }
     public partial class MainWindow : Window
     {
         double number1 = 0;
@@ -731,8 +778,6 @@ namespace Calculator3
             }
         }
 
-
-
         private void BtnBackSpase_Click(object sender, RoutedEventArgs e)
         {
             bool flag = false;
@@ -795,7 +840,6 @@ namespace Calculator3
             txtDisplay2.Text = number1.ToString() + "-";
         }
 
-
         private void BtnPlusMinus_Click(object sender, RoutedEventArgs e)
         {
             int length = txtDisplay2.Text.Length - 1;
@@ -839,7 +883,7 @@ namespace Calculator3
                 }
                 else
                 {
-                    number1 = 1 / number1;
+                    number1 = MyMath.math1X(number1);
                     txtDisplay.Text = number1.ToString();
                     txtDisplay2.Text += "1/(" + number1 + ")";
                 }
@@ -881,7 +925,7 @@ namespace Calculator3
             {
                 txtDisplay2.Text = txtDisplay2.Text.Remove(length);
                 txtDisplay2.Text += "cube(" + number2 + ")";
-                number2 = Math.Pow(number2, 3);
+                number2 = MyMath.mathCube(number2);
                 txtDisplay.Text = number2.ToString();
             }
         }
@@ -897,7 +941,7 @@ namespace Calculator3
             else
             {
                 txtDisplay2.Text += "sqr(" + number2 + ")";
-                number2 = Math.Pow(number2, 2);
+                number2 = MyMath.mathSquare(number2);
                 txtDisplay.Text = number2.ToString();
             }
         }
@@ -923,13 +967,13 @@ namespace Calculator3
             if (operation == "")
             {
                 txtDisplay2.Text += "√(" + number1 + ")";
-                number1 = Math.Sqrt(number1);
+                number1 = MyMath.mathSqrt(number1);// Math.Sqrt(number1);
                 txtDisplay.Text = number1.ToString();
             }
             else
             {
                 txtDisplay2.Text += "√(" + number2 + ")";
-                number2 = Math.Sqrt(number2);
+                number2 = MyMath.mathSqrt(number2);//Math.Sqrt(number2);
                 txtDisplay.Text = number2.ToString();
             }
         }
@@ -955,7 +999,7 @@ namespace Calculator3
             {
                 if (operation != "")
                 {
-                    number2 = ((double)number1 / 100) * (double)number2;
+                    number2 = MyMath.mathPercent((double)number1, (double)number2);
                 }
                 else
                 {
@@ -1265,7 +1309,7 @@ namespace Calculator3
             switch (operation)
             {
                 case "+":
-                    txtDisplay.Text = (number1 + number2).ToString();
+                    txtDisplay.Text = (MyMath.mathAddition(number1, number2)).ToString();
                     txtDisplay2.Text += number2.ToString() + "=";
                     if (bProgrammer)
                     {
@@ -1273,7 +1317,7 @@ namespace Calculator3
                     }
                     break;
                 case "-":
-                    txtDisplay.Text = (number1 - number2).ToString();
+                    txtDisplay.Text = (MyMath.mathSubtraction(number1, number2)).ToString();
                     txtDisplay2.Text += number2.ToString() + "=";
                     if (bProgrammer)
                     {
@@ -1281,7 +1325,7 @@ namespace Calculator3
                     }
                     break;
                 case "*":
-                    txtDisplay.Text = (number1 * number2).ToString();
+                    txtDisplay.Text = MyMath.mathMultiplication(number1, number2).ToString();
                     txtDisplay2.Text += number2.ToString() + "=";
                     number2 = 0;
                     if (bProgrammer)
@@ -1298,7 +1342,7 @@ namespace Calculator3
                     }
                     else
                     {
-                        txtDisplay.Text = (number1 / number2).ToString();
+                        txtDisplay.Text = MyMath.mathDivision(number1, number2).ToString();
                         txtDisplay2.Text += number2.ToString() + "=";
                         if (bProgrammer)
                         {
